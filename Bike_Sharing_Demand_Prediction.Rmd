@@ -1,4 +1,16 @@
-# Bike-Sharing-Demand-Linear-Regression
+---
+title: "Bike Sharing Demand Prediction"
+author: "Rajender Kumar"
+date: "1/29/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# About Project
+
 This project focuses on conducting Exploratory Data Analysis and running Linear Regression on Bike Sharing Demand data set which was provided by Hadi Fanaee Tork using data from Capital Bikeshare.
 
 ## What is Bike Sharing Systems ?
@@ -35,7 +47,7 @@ The data set contains following features :-
      2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist 
      3: Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds 
      4: Heavy Rain + Ice Pallets + Thunderstorm + Mist, Snow + Fog 
-
+     
 <li> temp - temperature in Celsius </br>
 <li> atemp - "feels like" temperature in Celsius </br>
 <li> humidity - relative humidity </br>
@@ -77,7 +89,7 @@ pl <- ggplot(bikeshare,aes(datetime,count)) + geom_point(aes(color=temp),alpha=0
 pl + scale_color_continuous(low = '#55D8CE',high = '#FF6E2E') + theme_bw()
 ```
 
-There is a clear seasonal trend where the total rental bikes seems to decrease during Winters i.e month of January and February of the year and the total rental bikes seems to increase during summers.
+There is a clear seasonal trend where the total rental bikes seems to decrease during Winters i.e month of January and Feburary of the year and the total rental bikes seems to increase during summers.
 
 The other trend which is quite evident is that the number of rental bike counts is increasing from year 2011 to year 2013.
 
@@ -148,30 +160,30 @@ print(summary(temp.model))
 
 ## Model Interpretation
 ** Based on the value of Intercept which is 6.0462, linear regression model predicts that there will be 6 bike rental when the temperature is 0.
-** For temp variable Estimated Std. value is 9.1705 which signifies that a temperature increase of 1 Celsius holding all things equal is associated with a rental increase of about 9.1 bikes. </br>
+** For temp variable Estimated Std. value is 9.1705 which signigies that a temperature increase of 1 celsius holding all things equal is associated with a rental increase of about 9.1 bikes. </br>
 ** The above findings is not a Causation and Beta 1 would be negative if an increase in temperature was associated with a decrease in rentals.</br>
 
-Next we want to know is how many bikes would we predict to be rented if the temperature was 25 degrees Celsius.
+Next we want to know is how many bikes would we predict to be rented if the temperature was 25 degrees celsius.
 
-## How many rented bikes at temperature 25 degrees Celsius
+## How many rented bikes at temperature 25 degrees celsius
 ```{r calculate}
 6.0462 + 9.1705 * 25
 temp.test <- data.frame(temp=c(25))
 predict(temp.model,temp.test)
 
 ```
-Based on the above calculation we can say that the number of bikes rented at 25 degrees Celsius temperature will be 235.30
+Based on the above calculation we can say that the number of bikes rented at 25 degrees celsius temperature will be 235.30
 
 ## Building Second Model with more features
 Model that attempts to predict count based off of the following features :-
- season
- holiday
- workingday
- weather
- temp
- humidity
-windspeed
-hour (factor) 
+<li> season
+<li> holiday
+<li> workingday
+<li> weather
+<li> temp
+<li> humidity
+<li> windspeed
+<li>hour (factor) 
 
 ```{r model_build2}
 model <- lm(count ~ . -casual - registered - datetime - atemp, bikeshare)
@@ -179,7 +191,8 @@ print(summary(model))
 ```
 
 ## Important Insights
-This sort of model doesn't work well given our seasonal and time series data. We need a model that can account for this type of trend. We will get thrown off with the growth of our dataset accidentally attributing to the winter season instead of realizing it's just overall demand growing.
+This sort of model doesn't work well given our seasonal and time series data. We need a model that can account for this type of trend. We will get thrown off with the growth of our dataset accidentaly attributing to the winter season instead of realizing it's just overall demand growing.
 
 ## Acknowledgements
 This dataset was provided by Hadi Fanaee Tork using data from <a href= 'https://www.capitalbikeshare.com/system-data'>Capital Bikeshare </a>. We also thank the UCI machine learning repository for hosting the dataset. 
+
